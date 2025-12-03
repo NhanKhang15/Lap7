@@ -1,208 +1,441 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Management</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        h1 {
-            color: #667eea;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-        }
-        
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .actions {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary {
-            background-color: #667eea;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: #5568d3;
-        }
-        
-        .btn-success {
-            background-color: #28a745;
-            color: white;
-        }
-        
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-        
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 14px;
-        }
-        
-        .search-form {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .search-form input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            flex: 1;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        th {
-            background-color: #667eea;
-            color: white;
-        }
-        
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-        
-        .actions-column {
-            display: flex;
-            gap: 5px;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        color: #667eea;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s;
+    }
+
+    .btn-primary {
+        background-color: #667eea;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #5568d3;
+    }
+
+    .btn-info {
+        background-color: #5568d3; 
+        color: white;
+    }
+
+    .btn-info:hover {
+        background-color: #2138bdff;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+
+    .search-form {
+        display: flex;
+        gap: 10px;
+    }
+
+    .search-form input {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        flex: 1;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #667eea;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+    }
+
+    .actions-column {
+        display: flex;
+        gap: 5px;
+    }
+
+    /* CSS cho Filter Box */
+    .filter-box {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+    .filter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        align-items: end;
+    }
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    /* Pagination */
+    .pagination-container {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .pagination {
+        display: inline-flex;
+        list-style: none;
+        gap: 5px;
+    }
+    .page-link {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        text-decoration: none;
+        color: #667eea;
+    }
+    .active .page-link {
+        background: #667eea;
+        color: white;
+    }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📦 Product Management System</h1>
-        
-        <!-- Success Message -->
-        <div th:if="${message}" class="alert alert-success">
-            <span th:text="${message}"></span>
+    <h1>📦 Product Management System</h1>
+
+    <div
+        th:if="${message}"
+        class="alert alert-success"
+        style="color: green; margin-bottom: 10px"
+    >
+        <span th:text="${message}"></span>
+    </div>
+    <div
+        th:if="${error}"
+        class="alert alert-error"
+        style="color: red; margin-bottom: 10px"
+    >
+        <span th:text="${error}"></span>
+    </div>
+
+    <div class="filter-box">
+        <form th:action="@{/products/advanced-search}" method="get">
+        <div class="filter-grid">
+            <div>
+            <label>Name</label>
+            <input
+                type="text"
+                name="name"
+                class="form-control"
+                th:value="${selectedName}"
+                placeholder="Product name..."
+            />
+            </div>
+            <div>
+            <label>Category</label>
+            <select name="category" class="form-control">
+                <option value="">All Categories</option>
+                <option
+                th:each="cat : ${categories}"
+                th:value="${cat}"
+                th:text="${cat}"
+                th:selected="${cat == selectedCategory}"
+                ></option>
+            </select>
+            </div>
+            <div>
+            <label>Min Price</label>
+            <input
+                type="number"
+                name="minPrice"
+                class="form-control"
+                th:value="${minPrice}"
+                step="0.01"
+            />
+            </div>
+            <div>
+            <label>Max Price</label>
+            <input
+                type="number"
+                name="maxPrice"
+                class="form-control"
+                th:value="${maxPrice}"
+                step="0.01"
+            />
+            </div>
+            <div>
+            <button type="submit" class="btn btn-primary" style="width: 100%">
+                Filter
+            </button>
+            </div>
         </div>
-        
-        <!-- Error Message -->
-        <div th:if="${error}" class="alert alert-error">
-            <span th:text="${error}"></span>
-        </div>
-        
-        <!-- Actions -->
-        <div class="actions">
-            <a th:href="@{/products/new}" class="btn btn-primary">➕ Add New Product</a>
+        </form>
+    </div>
+
+    <div class="actions">
+        <a th:href="@{/dashboard}" class="btn btn-info"
+        >📊 Statistics Dashboard</a
+        >
+
+        <a th:href="@{/export/excel}" class="btn btn-success">📥 Export Excel</a>
+
+        <a th:href="@{/products/new}" class="btn btn-primary">➕ Add New</a>
+
+        <form
+        th:action="@{/products/search}"
+        method="get"
+        style="display: flex; gap: 10px"
+        >
+        <input
+            type="text"
+            name="keyword"
+            th:value="${keyword}"
+            placeholder="Search & Paginate..."
+            class="form-control"
+            style="width: 200px"
+        />
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a th:href="@{/products/advanced-search}" class="btn btn-danger"
+            >Reset</a
+        >
+        </form>
+    </div>
+
+    <div th:if="${products != null and !products.isEmpty()}">
+        <table>
+        <thead>
+            <th>Image</th>
             
-            <form th:action="@{/products/search}" method="get" class="search-form">
-                <input type="text" name="keyword" th:value="${keyword}" placeholder="Search products..." />
-                <button type="submit" class="btn btn-primary">🔍 Search</button>
-            </form>
+            <th>Code</th>
+
+            <th>
+                <a
+                th:href="@{/products/advanced-search(
+                                name=${selectedName}, 
+                                category=${selectedCategory}, 
+                                minPrice=${minPrice}, 
+                                maxPrice=${maxPrice}, 
+                                sortBy='name', 
+                                sortDir=${sortBy=='name' and sortDir=='asc' ? 'desc' : 'asc'}
+                            )}"
+                style="color: white; text-decoration: none"
+                >
+                Name
+                <span
+                    th:if="${sortBy == 'name'}"
+                    th:text="${sortDir == 'asc' ? '▲' : '▼'}"
+                ></span>
+                </a>
+            </th>
+
+            <th>
+                <a
+                th:href="@{/products/advanced-search(
+                                name=${selectedName}, 
+                                category=${selectedCategory}, 
+                                minPrice=${minPrice}, 
+                                maxPrice=${maxPrice}, 
+                                sortBy='category', 
+                                sortDir=${sortBy=='category' and sortDir=='asc' ? 'desc' : 'asc'}
+                            )}"
+                style="color: white; text-decoration: none"
+                >
+                Category
+                <span
+                    th:if="${sortBy == 'category'}"
+                    th:text="${sortDir == 'asc' ? '▲' : '▼'}"
+                ></span>
+                </a>
+            </th>
+
+            <th>
+                <a
+                th:href="@{/products/advanced-search(
+                                name=${selectedName}, 
+                                category=${selectedCategory}, 
+                                minPrice=${minPrice}, 
+                                maxPrice=${maxPrice}, 
+                                sortBy='price', 
+                                sortDir=${sortBy=='price' and sortDir=='asc' ? 'desc' : 'asc'}
+                            )}"
+                style="color: white; text-decoration: none"
+                >
+                Price
+                <span
+                    th:if="${sortBy == 'price'}"
+                    th:text="${sortDir == 'asc' ? '▲' : '▼'}"
+                ></span>
+                </a>
+            </th>
+
+            <th>Quantity</th>
+            <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+            
+            <td>
+                <img th:if="${product.imagePath != null}" 
+                        th:src="@{'/images/' + ${product.imagePath}}" 
+                        style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; border: 1px solid #ddd;" />
+                
+                <span th:if="${product.imagePath == null}" 
+                        style="color: #999; font-style: italic; font-size: 12px;">No Image</span>
+            </td>
+
+            <td th:text="${product.productCode}">P001</td>
+            <td th:text="${product.name}">Product Name</td>
+            <td th:text="${product.category}"></td>
+            <td th:text="'$' + ${product.price}"></td>
+            <td th:text="${product.quantity}"></td>
+            <td>
+                <a
+                th:href="@{/products/edit/{id}(id=${product.id})}"
+                class="btn btn-success"
+                >✏️</a
+                >
+                <a
+                th:href="@{/products/delete/{id}(id=${product.id})}"
+                class="btn btn-danger"
+                onclick="return confirm('Delete this product?')"
+                >🗑️</a
+                >
+            </td>
+            </tr>
+        </tbody>
+        </table>
+
+        <div
+        th:if="${isPaginated == true && totalPages > 0}"
+        class="pagination-container"
+        >
+        <ul class="pagination">
+            <li th:classappend="${currentPage == 0} ? 'disabled'">
+            <a
+                class="page-link"
+                th:href="@{/products/search(keyword=${keyword}, page=${currentPage - 1})}"
+                >Prev</a
+            >
+            </li>
+            <li
+            th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+            th:classappend="${currentPage == i} ? 'active'"
+            >
+            <a
+                class="page-link"
+                th:href="@{/products/search(keyword=${keyword}, page=${i})}"
+                th:text="${i + 1}"
+            ></a>
+            </li>
+            <li th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+            <a
+                class="page-link"
+                th:href="@{/products/search(keyword=${keyword}, page=${currentPage + 1})}"
+                >Next</a
+            >
+            </li>
+        </ul>
         </div>
-        
-        <!-- Products Table -->
-        <div th:if="${products != null and !products.isEmpty()}">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Category</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="product : ${products}">
-                        <td th:text="${product.id}">1</td>
-                        <td th:text="${product.productCode}">P001</td>
-                        <td th:text="${product.name}">Product Name</td>
-                        <td th:text="'$' + ${#numbers.formatDecimal(product.price, 1, 2)}">$99.99</td>
-                        <td th:text="${product.quantity}">10</td>
-                        <td th:text="${product.category}">Electronics</td>
-                        <td>
-                            <div class="actions-column">
-                                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">✏️ Edit</a>
-                                <a th:href="@{/products/delete/{id}(id=${product.id})}" 
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Are you sure you want to delete this product?')">
-                                    🗑️ Delete
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Empty State -->
-        <div th:if="${products == null or products.isEmpty()}" class="empty-state">
-            <p>No products found. Add your first product!</p>
-        </div>
+    </div>
+
+    <div
+        th:if="${products == null or products.isEmpty()}"
+        style="text-align: center; margin-top: 30px; color: #666"
+    >
+        <p>No products found.</p>
+    </div>
     </div>
 </body>
 </html>
